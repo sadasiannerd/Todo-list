@@ -1,0 +1,26 @@
+body
+{
+    text-align: center;
+}
+.table
+{
+    margin: 50px auto;
+    width: 50%;
+}
+.head-title.container-fluid
+{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #3A98B9;
+}
+.table-container
+{
+    background-color: #FFF1DC;
+    height:400px;
+    
+}
+.form-control
+{
+    width:50%;
+    margin:auto;
+}
