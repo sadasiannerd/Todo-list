@@ -29,28 +29,38 @@
             <th scope="col">Finished?</th>
             <th scope="col">Delete</th>
           </tr>
-                
+        
         </thead>
         <tbody>
-            <%var num_task = tasks.length;%>
-                <%for(var i = 0; i < num_task; i++){%>
-                <%let row = 'row-' + String(i)%> 
-                <tr class = "<%=row%>">
-                <td scope="row"><%=i + 1%></td>
-                <td><%=tasks[i]%></td>
-                <td><div class="mb-3 form-check" style='display:inline-block;'>
-                    <input type="checkbox" class="form-check-input finished-check-box" value="<%=i%>">
-                    <label class="form-check-label" for="exampleCheck1" ></label>
-                  </div></td>
-                <%let btn_class = "btn btn-primary delete-row row-" + String(i)%>
+                <%let row_num = 1%>
+                <%tasks.forEach(function(task){%>
+                <tr>
+                <td scope="row"><%=row_num%></td>
+                <%row_num++%>
+                <td><%=task.task_name%></td>
                 <td>
-                  <form action="/delete" method ='post'>
-                  <input type="hidden" name="indexToDelete" value="<%=i%>" />
-                  <button type="submit" class= "<%=btn_class%>"
-                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">delete</button>
-                </form></td>
+                  <form action="/finish" method="POST">
+                  <div class="mb-3 form-check" style='display:inline-block;'>
+                    <input name = "itemToFinish" value = <%= task._id %> type="text" style = 'visibility: hidden; position:absolute;'>
+                    <%if(task.finished === 1){%>
+                    <input type="checkbox" class="form-check-input finished-check-box" onChange="this.form.submit()" checked>
+                    <%}else{%>
+                      <input type="checkbox" class="form-check-input finished-check-box" onChange="this.form.submit()">
+                    <%}%>
+                    
+                    <label class="form-check-label" for="exampleCheck1" ></label>
+                  </div>
+                  </form>
+                  </td>
+                
+                <td>
+                <form action="/delete" method ="POST">
+                  <input name = "itemToDelete" value = <%= task._id %> type="text" style = 'visibility: hidden; position:absolute;'>
+                  <button type="submit" class= "btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">delete</button>
+                </form>
+                </td>
                 </tr>
-                <%}%>
+                <%})%>
         </tbody>
         </table>
 
